@@ -4,6 +4,11 @@
 
 本项目用于自动登录 [Netlib.re](https://www.netlib.re/) 网站，实现账号保活。适用于需要每隔一段时间（如 30 天）登录一次的网站场景。支持多账号循环登录、登录失败判定、延迟和网页加载等待，防止被风控。支持 GitHub Actions 自动运行（无头模式），成功登录后停留 5 秒，用于保活或刷新 Cookie。仅用于登录保活，不涉及敏感操作。
 
+  
+   **⚠️随着Fork数量增加，为了避免风控，强烈建议Fork后
+   自行修改`.github/workflows/keepalive.yml`的第五行`- cron: "0 0 1,31 * *"`，其中的1和31，修改为`1-31`任意两个数字**
+
+   
    * 写多账号表示支持多账号，不代表不支持单个账号，问的我一脸懵，单账号也能用!
 
 ## 功能说明
@@ -64,13 +69,21 @@ user1,password1;user2,password2;user3,password3
 
 3. TG推送通知（可选）
 
-   * 在仓库 `Settings` → `Secrets and variables` → `Actions` → `New repository secret` 中添加
+   * 在仓库 `Settings` → `Secrets and variables` → `Actions` → `New repository secret` 中添加两个变量
+
+变量一：
 
 `Name` 填入 `TELEGRAM_BOT_TOKEN` ：TG BOT 的 TOKEN
 
-`Secret` 填入 `TELEGRAM_CHAT_ID` ：接受信息的ID
+`Secret` 填入 `TG BOT 的 TOKEN` 
 
-* 获取方式不用交了吧，不会搜一下就行
+变量二：
+
+`Name` 填入 `TELEGRAM_CHAT_ID` ：接收信息的用户ID
+
+`Secret` 填入 `接收信息的用户ID` 
+
+* 获取方式不用教了吧，不会搜一下就行
 
 5. **修改登录脚本（可选）**
 
